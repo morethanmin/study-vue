@@ -40,6 +40,16 @@
       ></todo-item>
     </ol>
 </div>
+<div id="app-8">
+    <p>원본 메시지: "{{ message }}"</p>
+    <p>역순으로 표시한 메시지: "{{ reversedMessageComputed }}"</p>
+    <p>뒤집힌 메시지: "{{ reversedMessageMethod() }}"</p>
+</div>
+<div id="app-9">
+    <p>{{ firstName }}</p>
+    <p>{{ lastName }}</p>
+    <p>{{ fullName }}</p>
+</div>
 
 
 <script>
@@ -114,4 +124,52 @@ var app7 = new Vue({
   }
 })
 
+var app8 = new Vue({
+  el: '#app-8',
+  data: {
+    message: '안녕하세요'
+  },
+  computed: {
+    // 계산된 getter
+    reversedMessageComputed: function () {
+      // `this` 는 vm 인스턴스를 가리킵니다.
+      return this.message.split('').reverse().join('')
+    }
+  },
+  methods:{
+  reversedMessageMethod: function () {
+    return this.message.split('').reverse().join('')
+  }
+  }
+})
+
+var app9 = new Vue({
+  el: '#app-9',
+  data: {
+    firstName: 'Foo',
+    lastName: 'Bar',
+    fullName: 'Foo Bar'
+  },
+  watch: {
+    firstName: function (val) {
+      this.fullName = val + ' ' + this.lastName
+    },
+    lastName: function (val) {
+      this.fullName = this.firstName + ' ' + val
+    }
+  }
+})
+
+// var app9 = new Vue({
+//   el: '#app-9',
+//   data: {
+//     firstName: 'Foo',
+//     lastName: 'Bar'
+//   },
+//   computed: {
+//     fullName: function () {
+//       return this.firstName + ' ' + this.lastName
+//     }
+//   }
+// })
 </script>
