@@ -1,1 +1,1 @@
-study vue 
+study vue /
