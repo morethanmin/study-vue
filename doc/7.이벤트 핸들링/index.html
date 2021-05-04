@@ -2,50 +2,74 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
-<!-- 리스트 렌더링 -->
-
-<ul id="example-1">
-  <li v-for="item in items">
-    {{ item.message }}
-  </li>
-</ul>
-<ul id="example-2">
-  <li v-for="(item, index) in items">
-    {{ parentMessage }} - {{ index }} - {{ item.message }}
-  </li>
-</ul>
-<ul id="v-for-object" class="demo">
-  <li v-for="value in object">
-    {{ value }}
-  </li>
-  <div v-for="(value, name) in object">
-    {{ name }}: {{ value }}
-  </div>
-  <div v-for="(value, name, index) in object">
-    {{ index }}. {{ name }}: {{ value }}
-  </div>
-</ul>
-<div id="todo-list-example">
-  <form v-on:submit.prevent="addNewTodo">
-    <label for="new-todo">Add a todo</label>
-    <input
-      v-model="newTodoText"
-      id="new-todo"
-      placeholder="E.g. Feed the cat"
-    >
-    <button>Add</button>
-  </form>
-  <ul>
-    <li
-      is="todo-item"
-      v-for="(todo, index) in todos"
-      v-bind:key="todo.id"
-      v-bind:title="todo.title"
-      v-on:remove="todos.splice(index, 1)"
-    ></li>
-  </ul>
+<div id="example-1">
+  <button v-on:click="counter += 1">Add 1</button>
+  <p>위 버튼을 클릭한 횟수는 {{ counter }} 번 입니다.</p>
+</div>
+<div id="example-2">
+  <!-- `greet`는 메소드 이름으로 아래에 정의되어 있습니다 -->
+  <button v-on:click="greet">Greet</button>
+</div>
+<div id="example-3">
+  <button v-on:click="say('hi')">Say hi</button>
+  <button v-on:click="say('what')">Say what</button>
+</div>
+<div id="example-4">
+  <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+    Submit
+  </button>
 </div>
 
+<!-- 클릭 이벤트 전파가 중단됩니다 -->
+<a v-on:click.stop="doThis"></a>
+
+<!-- 제출 이벤트가 페이지를 다시 로드 하지 않습니다 -->
+<form v-on:submit.prevent="onSubmit"></form>
+
+<!-- 수식어는 체이닝 가능합니다 -->
+<a v-on:click.stop.prevent="doThat"></a>
+
+<!-- 단순히 수식어만 사용할 수 있습니다 -->
+<form v-on:submit.prevent></form>
+
+<!-- 이벤트 리스너를 추가할 때 캡처모드를 사용합니다 -->
+<!-- 즉, 내부 엘리먼트를 대상으로 하는 이벤트가 해당 엘리먼트에서 처리되기 전에 여기서 처리합니다. -->
+<div v-on:click.capture="doThis">...</div>
+
+
+<!-- event.target이 엘리먼트 자체인 경우에만 트리거를 처리합니다 -->
+<!-- 자식 엘리먼트에서는 안됩니다 -->
+<div v-on:click.self="doThat">...</div>
+
+<!-- 클릭 이벤트는 최대 한번만 트리거 됩니다. -->
+<a v-on:click.once="doThis"></a>
+
+<!-- 스크롤의 기본 이벤트를 취소할 수 없습니다. -->
+<div v-on:scroll.passive="onScroll">...</div>
+
+<!-- only call `vm.submit()` when the `key` is `Enter` -->
+<input v-on:keyup.enter="submit">
+
+<input v-on:keyup.page-down="onPageDown">
+
+<!-- Using keyCode attributes is also permitted: -->
+
+<input v-on:keyup.13="submit">
+
+<!-- Alt + C -->
+<input @keyup.alt.67="clear">
+
+<!-- Ctrl + Click -->
+<div @click.ctrl="doSomething">Do something</div>
+
+<!-- Alt 또는 Shift와 함께 눌린 경우에도 실행됩니다. -->
+<button @click.ctrl="onClick">A</button>
+
+<!-- Ctrl 키만 눌려있을 때만 실행됩니다. -->
+<button @click.ctrl.exact="onCtrlClick">A</button>
+
+<!-- 아래 코드는 시스템 키가 눌리지 않은 상태인 경우에만 작동합니다. -->
+<button @click.exact="onClick">A</button>
 
 
  <!-- 스크립트 -->
