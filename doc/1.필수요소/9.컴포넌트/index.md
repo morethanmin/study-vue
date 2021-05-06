@@ -15,3 +15,5 @@ prop의 초기 값을 초기 값으로 사용하는 로컬 데이터 속성을 �
 prop 값으로 부터 계산된 속성을 정의 합니다.
 
 `props: ['size'], computed: { normalizedSize: function () { return this.size.trim().toLowerCase() } }`
+
+# 재사용 가능한 컴포넌트 제작하기

@@ -214,3 +214,15 @@ var vm = new Vue({
     archive: { /* ... */ }
   }
 })
+
+// 원하는 경우 컴포넌트 객체에 직접 바인딩 할 수도 있습니다.
+var Home = {
+  template: '<p>Welcome home!</p>'
+}
+
+var vm = new Vue({
+  el: '#example',
+  data: {
+    currentView: Home
+  }
+})  
