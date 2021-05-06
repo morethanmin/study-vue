@@ -4,7 +4,7 @@
     <BaseInputText
       v-model="newTodoText"
       placeholder="할 일을 입력해 주세요."
-      v-on:keydown.enter="addTodo"
+      @add="addTodo"
     />
     <ul v-if="todos.length">
       <TodoListItem
@@ -50,9 +50,10 @@ export default {
     };
   },
   methods: {
-    addTodo() {
+    addTodo(text = "") {
       console.log("addTodo");
-      const trimmedText = this.newTodoText.trim();
+      // const trimmedText = this.newTodoText.trim();
+      const trimmedText = text.trim();
       if (trimmedText) {
         this.todos.push({
           id: nextTodoId++,
